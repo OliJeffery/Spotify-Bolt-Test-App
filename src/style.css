@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply antialiased;
+  font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+}
+
+.dark body {
+  @apply bg-scythe-black text-white;
+}
+
+.light body {
+  @apply bg-white text-scythe-black;
+}
