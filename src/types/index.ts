@@ -29,6 +29,8 @@ export interface PitchforkReview {
   score: number;
   publishDate: string;
   content: string;
+  artist: string;
+  albumName: string;
 }
 
 export interface UserProfile {

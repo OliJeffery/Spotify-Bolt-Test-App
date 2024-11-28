@@ -14,7 +14,7 @@ const SCOPES = [
 ].join(' ');
 
 export const useAuthStore = defineStore('auth', () => {
-  const accessToken = ref<string | null>(null);
+  const accessToken = ref<string | null>(localStorage.getItem('spotify_access_token'));
   const userProfile = ref<UserProfile | null>(null);
 
   const login = () => {
@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('auth', () => {
     window.location.href = `https://accounts.spotify.com/authorize?${params.toString()}`;
   };
 
-  const handleCallback = () => {
+  const handleCallback = (): string | null => {
     const hash = window.location.hash.substring(1);
     const params = new URLSearchParams(hash);
     const token = params.get('access_token');
@@ -45,6 +45,8 @@ export const useAuthStore = defineStore('auth', () => {
 
     accessToken.value = token;
     localStorage.setItem('spotify_access_token', token);
+    localStorage.removeItem('spotify_auth_state');
+    
     return token;
   };
 
@@ -54,7 +56,9 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('spotify_access_token');
   };
 
-  const isAuthenticated = () => !!accessToken.value;
+  const isAuthenticated = (): boolean => {
+    return !!accessToken.value;
+  };
 
   return {
     accessToken,
